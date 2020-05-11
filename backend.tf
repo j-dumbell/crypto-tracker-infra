@@ -1,7 +1,15 @@
 provider "google" {
-  project = "big-quanta-276615"
-  region  = "europe-west2"
-  zone    = "europe-west2-a"
+  credentials = var.credentials_path
+  project     = var.project
+  region      = var.region
+  zone        = var.zone
+}
+
+provider "google-beta" {
+  credentials = var.credentials_path
+  project     = var.project
+  region      = var.region
+  zone        = var.zone
 }
 
 resource "google_storage_bucket" "terraform-state-bucket" {
@@ -13,8 +21,14 @@ resource "google_storage_bucket" "terraform-state-bucket" {
 }
 
 terraform {
+  required_version = ">= 0.12"
+
+  required_providers {
+    google-beta = ">= 3.8"
+  }
+
   backend "gcs" {
-  credentials = "big-quanta-276615-293a72e1a679.json"
-  bucket  = "crypto-tracker-terraform-state"
+    credentials = "big-quanta-276615-293a72e1a679.json"
+    bucket  = "crypto-tracker-terraform-state"
   }
 }

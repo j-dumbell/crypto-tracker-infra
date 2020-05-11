@@ -35,3 +35,14 @@ resource "google_sql_database_instance" "backend_db" {
 
   }
 }
+
+data "google_secret_manager_secret_version" "pgpassword" {
+  provider  = google-beta
+  secret    = "PGPASSWORD"
+}
+
+resource "google_sql_user" "backend_db_user" {
+  name     = "backend-db-user"
+  instance = google_sql_database_instance.backend_db.name
+  password = data.google_secret_manager_secret_version.pgpassword.secret_data
+}
