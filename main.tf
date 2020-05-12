@@ -38,8 +38,12 @@ resource "google_sql_database_instance" "backend_db" {
     tier            = "db-f1-micro"
 
     ip_configuration {
-      ipv4_enabled    = false
+      ipv4_enabled    = true
       private_network = google_compute_network.vpc_network.self_link
+
+      authorized_networks {
+        value = "82.17.109.71/32"
+      }
     }
   }
 }
@@ -65,7 +69,7 @@ resource "google_container_cluster" "gke_cluster" {
 
   private_cluster_config {
     enable_private_nodes    = true
-    enable_private_endpoint = true
+    enable_private_endpoint = false
     master_ipv4_cidr_block  = "10.2.0.0/28"
   }
 
@@ -75,6 +79,10 @@ resource "google_container_cluster" "gke_cluster" {
   }
 
   master_authorized_networks_config {
+
+    cidr_blocks {
+      cidr_block = "82.17.109.71/32"
+    }
   }
 }
 
