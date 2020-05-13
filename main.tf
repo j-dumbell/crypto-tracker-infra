@@ -78,12 +78,6 @@ resource "google_container_cluster" "gke_cluster" {
     services_ipv4_cidr_block = ""
   }
 
-  master_authorized_networks_config {
-
-    cidr_blocks {
-      cidr_block = "82.17.109.71/32"
-    }
-  }
 }
 
 resource "google_container_node_pool" "gke_node_pool" {
