@@ -85,3 +85,11 @@ resource "google_container_node_pool" "gke_node_pool" {
   cluster    = google_container_cluster.gke_cluster.name
   node_count = 2
 }
+
+resource "google_storage_bucket" "bucket-prices" {
+  name          = "crypto-tracker-prices"
+  location      = "EU"
+  versioning {
+    enabled     = true
+  }
+}
