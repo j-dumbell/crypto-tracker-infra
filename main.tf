@@ -42,7 +42,7 @@ resource "google_sql_database_instance" "backend_db" {
       private_network = google_compute_network.vpc_network.self_link
 
       authorized_networks {
-        value = "82.17.109.71/32"
+        value = "82.26.122.26/32"
       }
     }
   }

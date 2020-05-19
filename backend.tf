@@ -28,7 +28,7 @@ terraform {
   }
 
   backend "gcs" {
-    credentials = "big-quanta-276615-293a72e1a679.json"
+    credentials = "creds.json"
     bucket  = "crypto-tracker-terraform-state"
   }
 }
