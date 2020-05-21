@@ -84,6 +84,14 @@ resource "google_container_node_pool" "gke_node_pool" {
   name       = "gke-node-pool"
   cluster    = google_container_cluster.gke_cluster.name
   node_count = 2
+
+  node_config {
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+      "https://www.googleapis.com/auth/devstorage.read_write"
+    ]
+  }
 }
 
 resource "google_storage_bucket" "bucket-prices" {
@@ -112,4 +120,3 @@ resource "google_compute_router_nat" "crypto_route_nat" {
     filter = "ERRORS_ONLY"
   }
 }
-
