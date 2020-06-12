@@ -1,19 +1,17 @@
 provider "google" {
-  credentials = var.credentials_path
   project     = var.project
   region      = var.region
   zone        = var.zone
 }
 
 provider "google-beta" {
-  credentials = var.credentials_path
   project     = var.project
   region      = var.region
   zone        = var.zone
 }
 
 resource "google_storage_bucket" "terraform-state-bucket" {
-  name          = "crypto-tracker-terraform-state"
+  name          = var.state_bucket
   location      = "EU"
   versioning {
     enabled     = true
@@ -27,8 +25,4 @@ terraform {
     google-beta = ">= 3.8"
   }
 
-  backend "gcs" {
-    credentials = "creds.json"
-    bucket  = "crypto-tracker-terraform-state"
-  }
 }
