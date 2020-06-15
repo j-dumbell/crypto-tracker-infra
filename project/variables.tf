@@ -1,3 +1,6 @@
+variable "env" {
+}
+
 variable "credentials_path" {
 }
 
