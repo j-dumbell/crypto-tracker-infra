@@ -6,6 +6,9 @@ To setup GCP authentication (where `<creds_path>` is the path to the credentials
 
 ```export GOOGLE_APPLICATION_CREDENTIALS="<creds_path>"```
 
+####Set DB password
+Create a secret in GCP Secret manager with key `PGPASSWORD` to hold the database password.
+
 ####Provision Backend
 Update the variables in `remote_state/main.tf` as per the GCP project.
 

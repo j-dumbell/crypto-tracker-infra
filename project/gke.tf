@@ -1,10 +1,11 @@
 resource "google_container_cluster" "gke_cluster" {
+  count                     = contains(["prod"], var.env) ? 1 : 0
   name                      = "crypto-tracker-cluster"
   location                  = var.zone
   remove_default_node_pool  = true
   initial_node_count        = 1
-  network                   = google_compute_network.vpc_network.self_link
-  subnetwork                = google_compute_subnetwork.general_subnet.self_link
+  network                   = google_compute_network.vpc_network[count.index].self_link
+  subnetwork                = google_compute_subnetwork.general_subnet[count.index].self_link
 
   private_cluster_config {
     enable_private_nodes    = true
@@ -20,8 +21,9 @@ resource "google_container_cluster" "gke_cluster" {
 }
 
 resource "google_container_node_pool" "gke_node_pool" {
+  count      = contains(["prod"], var.env) ? 1 : 0
   name       = "gke-node-pool"
-  cluster    = google_container_cluster.gke_cluster.name
+  cluster    = google_container_cluster.gke_cluster[count.index].name
 
   autoscaling {
     max_node_count = 2

@@ -18,6 +18,6 @@ terraform {
   }
 
   backend "gcs" {
-    bucket  = "basdasdas"
+    bucket  = "crypto-tracker-remote-state"
   }
 }

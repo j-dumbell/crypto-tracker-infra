@@ -1,6 +1,5 @@
 init: check-var-env
 	cd project/environments/$(env) && \
-#	rm -rf .terraform/ && \
 	terraform init -backend=true -backend-config="prefix=$(env)" ../..
 
 plan: check-var-env
